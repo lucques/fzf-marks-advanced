@@ -2,7 +2,7 @@ FZFMA_BASE=$(dirname $0)
 
 # Core functions
 
-function fzma-select-multi-files {
+function fzfma-select-multi-files {
     (paste -sd '\n' $FZFMA_FILES $FZFMA_DIRS_PRIMARY $FZFMA_DIRS_SECONDARY) |
     awk NF |   # Remove empty lines
     ${FZFMA_BASE}/raw-to-formatted.py |
@@ -12,7 +12,7 @@ function fzma-select-multi-files {
     ${FZFMA_BASE}/formatted-to-paths.py
 }
 
-function fzma-select-single-dir {
+function fzfma-select-single-dir {
     (paste -sd '\n' $FZFMA_DIRS_PRIMARY $FZFMA_DIRS_SECONDARY) |
     awk NF |   # Remove empty lines
     ${FZFMA_BASE}/raw-to-formatted.py |
@@ -23,22 +23,22 @@ function fzma-select-single-dir {
 
 # Define widgets
 
-function fzma-insert-widget() {
-    LBUFFER="${LBUFFER}$(fzma-select-multi-files)"
+function fzfma-insert-widget() {
+    LBUFFER="${LBUFFER}$(fzfma-select-multi-files)"
     local ret=$?
     zle reset-prompt
     return $ret
 }
-zle -N fzma-insert-widget
+zle -N fzfma-insert-widget
 
-function fzma-open-widget() {
-    local target="$(fzma-select-single-dir)" || return
+function fzfma-open-widget() {
+    local target="$(fzfma-select-single-dir)" || return
     if [[ -d ${target} ]]; then
         cd "${target}"
     fi
     zle && zle reset-prompt
 }
-zle -N fzma-open-widget
+zle -N fzfma-open-widget
 
 # Define plain functions
 
@@ -60,11 +60,11 @@ function bookmark-file() {
 # Bind hotkeys
 
 if [ "${FZFMA_KEY_INSERT}" ]; then
-    bindkey ${FZFMA_KEY_INSERT} fzma-insert-widget
+    bindkey ${FZFMA_KEY_INSERT} fzfma-insert-widget
 fi
 
 if [ "${FZFMA_KEY_OPEN}" ]; then
-    bindkey ${FZFMA_KEY_OPEN} fzma-open-widget
+    bindkey ${FZFMA_KEY_OPEN} fzfma-open-widget
 fi
 
 if [ "${FZFMA_KEY_ADD_DIR}" ]; then

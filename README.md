@@ -27,7 +27,7 @@ Further things that would be nice to have in the future:
 * Annotate the files with a default program, so one can launch a file on the fly from desktop
 
 ## How to use
-Just copy the this folder to where you store your plugins for zsh. The plugin is then initialized by running `fzf-marks-advanced.plugin.zsh`. Don't forget to set your settings.
+Just copy the folder to where you store your plugins for zsh. The plugin is then initialized by running `fzf-marks-advanced.plugin.zsh`. Don't forget to set your settings.
 
 ## Configuration
 The following parameters **have to be** set.
